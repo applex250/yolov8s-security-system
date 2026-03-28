@@ -1,0 +1,82 @@
+# YOLOv8s 智能安防系统主配置
+
+# 模型配置
+model:
+  path: "models/yolov8s.pt"
+  confidence_threshold: 0.5
+  iou_threshold: 0.45
+  device: "cuda"  # "cuda" 或 "cpu"
+  classes: [0, 1, 2, 3, 5, 7]  # COCO: person, bicycle, car, motorcycle, bus, truck
+
+# 跟踪配置
+tracker:
+  type: "bytetrack"  # "bytetrack" 或 "botsort"
+  track_buffer: 30   # 轨迹缓冲帧数
+  match_thresh: 0.8  # 匹配阈值
+  min_box_area: 10   # 最小框面积
+
+# 电子围栏配置
+zones:
+  config_path: "configs/zones.json"
+  enable: true
+
+# 行为分析配置
+behavior:
+  # 徘徊检测
+  loitering:
+    enable: true
+    time_threshold: 30.0     # 徘徊时间阈值(秒)
+    distance_threshold: 100  # 移动距离阈值(像素)，小于此值视为徘徊
+    min_frames: 30           # 最小连续帧数
+
+  # 人群聚集检测
+  crowd:
+    enable: true
+    min_people: 3            # 触发报警的最少人数
+    distance_threshold: 150  # 人与人之间的距离阈值(像素)
+    time_threshold: 10.0     # 持续时间阈值(秒)
+
+# 报警配置
+alarm:
+  # 视觉报警
+  visual:
+    enable: true
+    border_color: [0, 0, 255]     # BGR: 红色
+    border_thickness: 5
+    flash_interval: 0.5           # 闪烁间隔(秒)
+    alert_text: "ALERT!"
+
+  # 音频报警
+  audio:
+    enable: true
+    type: "beep"             # "beep" 或 "custom"
+    custom_file: ""          # 自定义音频文件路径
+    duration: 0.3            # 蜂鸣持续时间(秒)
+    frequency: 1000          # 蜂鸣频率(Hz)
+
+  # 截图保存
+  snapshot:
+    enable: true
+    save_path: "output/snapshots"
+    prefix: "alert_"
+    format: "jpg"
+    quality: 95
+
+# 视频源配置
+video:
+  source_type: "file"       # "file", "rtsp", "webcam"
+  source_path: ""           # 视频文件路径或RTSP地址
+  webcam_id: 0              # 摄像头ID
+  output_path: "output/videos"
+  save_output: false        # 是否保存输出视频
+  output_fps: 30
+
+# 显示配置
+display:
+  enable: true
+  window_name: "YOLOv8s Security System"
+  show_fps: true
+  show_tracks: true
+  show_zones: true
+  show_labels: true
+  show_confidence: true

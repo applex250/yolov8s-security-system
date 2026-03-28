@@ -1,0 +1,22 @@
+{
+  "zones": [
+    {
+      "id": 1,
+      "name": "Zone-A-Entrance",
+      "polygon": [[100, 100], [300, 100], [300, 400], [100, 400]],
+      "enabled": true,
+      "detect_classes": [0],
+      "description": "Main entrance, detect people"
+    },
+    {
+      "id": 2,
+      "name": "Zone-B-Parking",
+      "polygon": [[400, 100], [800, 100], [800, 500], [400, 500]],
+      "enabled": true,
+      "detect_classes": [2, 3, 5, 7],
+      "description": "Parking area, detect vehicles"
+    }
+  ],
+  "version": "1.0",
+  "description": "Zone configuration file"
+}
